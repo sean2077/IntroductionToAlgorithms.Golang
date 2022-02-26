@@ -1,7 +1,7 @@
 package sort_algorithms
 
 // 插入排序
-func insertionSort(arr []int) []int {
+func InsertionSort(arr []int) {
 	for j := 1; j < len(arr); j++ {
 		val := arr[j]
 		i := j - 1
@@ -13,5 +13,4 @@ func insertionSort(arr []int) []int {
 		}
 		arr[i+1] = val
 	}
-	return arr
 }
