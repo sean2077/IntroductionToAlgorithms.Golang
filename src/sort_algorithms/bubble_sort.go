@@ -1,7 +1,7 @@
 package sort_algorithms
 
 // 冒泡排序
-func BubbleSort(arr []int) {
+func BubbleSort(arr []int) []int {
 	size := len(arr)
 	for i := 0; i < size; i++ {
 		for j := size - 1; j > i; j-- {
@@ -10,4 +10,5 @@ func BubbleSort(arr []int) {
 			}
 		}
 	}
+	return arr
 }

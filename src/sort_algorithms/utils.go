@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-type sortfunc func([]int)
+type sortfunc func([]int) []int
 
 func init() {
 	rand.Seed(time.Now().Unix())
@@ -36,9 +36,9 @@ func CheckSorted(arr []int) bool {
 func TestSort(fn sortfunc, arr []int, t *testing.T) {
 	fmt.Printf("%s\n", GetFunctionName(fn))
 	fmt.Printf(" [input]: %v \n", arr)
-	fn(arr)
+	sortedArr := fn(arr)
 	fmt.Printf(" [output]: %v \n", arr)
-	assert.True(t, CheckSorted(arr))
+	assert.True(t, CheckSorted(sortedArr))
 }
 
 func QuickTestSort(fn sortfunc, t *testing.T) {

@@ -1,16 +1,16 @@
 package sort_algorithms
 
 // 插入排序
-func InsertionSort(arr []int) {
+func InsertionSort(arr []int) []int {
 	for j := 1; j < len(arr); j++ {
 		val := arr[j]
-		i := j - 1
-		for ; i >= 0; i-- {
+		for i := j - 1; i >= 0; i-- {
 			if arr[i] <= val {
+				arr[i+1] = val
 				break
 			}
 			arr[i+1] = arr[i]
 		}
-		arr[i+1] = val
 	}
+	return arr
 }
