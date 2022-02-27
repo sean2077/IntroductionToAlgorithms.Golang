@@ -5,5 +5,5 @@ import (
 )
 
 func TestInsertionSort(t *testing.T) {
-	QuickTestSort(InsertionSort)
+	QuickTestSort(InsertionSort, t)
 }

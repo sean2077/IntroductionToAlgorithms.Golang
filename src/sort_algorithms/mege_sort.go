@@ -8,6 +8,7 @@ func merge(arr []int, l, m, r int) {
 
 	i := 0
 	j := m - l + 1
+	m = m - l
 	sz := len(raw)
 
 	for k := l; k <= r; k++ {
@@ -34,3 +35,6 @@ func mergeSort(arr []int, l, r int) {
 func MergeSort(arr []int) {
 	mergeSort(arr, 0, len(arr)-1)
 }
+
+// 思考题2-1（p22）
+// 在归并排序中对小数组采用插入排序
