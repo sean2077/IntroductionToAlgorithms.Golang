@@ -1,0 +1,4 @@
+Sphinx
+myst_parser
+furo
+sphinxcontrib-programoutput

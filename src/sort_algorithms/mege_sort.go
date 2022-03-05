@@ -71,6 +71,3 @@ func MergeSort(arr []int) []int {
 
 	return merge(left, right)
 }
-
-// 思考题2-1（p22）
-// 在归并排序中对小数组采用插入排序

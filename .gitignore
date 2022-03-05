@@ -15,3 +15,8 @@
 # vendor/
 
 .ipynb_checkpoints
+
+build
+
+.vscode
+.mypy_cache
