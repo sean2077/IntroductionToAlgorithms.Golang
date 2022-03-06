@@ -20,7 +20,7 @@ help:
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 clean:
-	rm -rf docs/*
+	rm -rf docs/* _build
 
 github: clean html
 	@cp -a _build/html/. docs
