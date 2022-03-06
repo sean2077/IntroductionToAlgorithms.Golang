@@ -1,0 +1,45 @@
+FROM ubuntu:20.04 as base
+
+ARG arch=amd64
+
+# 更新源
+RUN  sed -i s/archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g /etc/apt/sources.list \
+    && sed -i s/security.ubuntu.com/mirrors.aliyun.com/g /etc/apt/sources.list \
+    && cat /etc/apt/sources.list \
+    && rm -rf /etc/apt/sources.list.d/ \
+    && apt-get clean \
+    && apt update
+
+# 安装相关工具和库
+RUN apt install -y --no-install-recommends \
+    dumb-init \
+    wget \
+    curl \
+    jq \
+    bsdmainutils \
+    make \ 
+    git
+
+# 安装python3.8
+RUN apt install -y --no-install-recommends \
+    python3 \
+    python3-pip \
+    python-is-python3
+RUN apt autoremove && apt clean
+
+
+# 安装 libs for opencv
+RUN apt-get install -y --no-install-recommends \
+    libgl1-mesa-glx libglib2.0-0 libsm6 libxext6 libxrender-dev
+
+# Download python dependencies
+ENV PYPI_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple
+RUN pip install -i ${PYPI_INDEX_URL} -U pip
+RUN pip install -i ${PYPI_INDEX_URL} \
+    Sphinx \
+    myst_parser \
+    furo \
+    sphinxcontrib-programoutput
+RUN pip cache purge
+
+CMD ["/bin/bash"]
