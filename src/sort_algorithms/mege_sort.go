@@ -40,18 +40,18 @@ package sort_algorithms
 
 // 使用 golang slice 的写法
 
-func merge(left, right []int) []int {
+func merge(L, R []int) []int {
 	result := []int{}
 	i := 0
 	j := 0
-	lsz := len(left)
-	rsz := len(right)
-	for i < lsz && j < rsz {
-		if j >= rsz || i < lsz && left[i] < right[j] {
-			result = append(result, left[i])
+	lsz := len(L)
+	rsz := len(R)
+	for i < lsz || j < rsz {
+		if j >= rsz || i < lsz && L[i] < R[j] {
+			result = append(result, L[i])
 			i++
 		} else {
-			result = append(result, right[j])
+			result = append(result, R[j])
 			j++
 		}
 	}
@@ -70,4 +70,42 @@ func MergeSort(arr []int) []int {
 	right := MergeSort(arr[sz/2:])
 
 	return merge(left, right)
+}
+
+// 逆序对
+func mergeInvertParis(L, R []int) ([]int, int) {
+	lsz := len(L)
+	rsz := len(R)
+	M := make([]int, 0, lsz+rsz)
+	i := 0
+	j := 0
+	res := 0
+	for i < lsz || j < rsz {
+		if j >= rsz || i < lsz && L[i] < R[j] {
+			M = append(M, L[i])
+			i++
+		} else {
+			M = append(M, R[j])
+			j++
+			res += lsz - i
+		}
+	}
+	return M, res
+}
+
+func invertParis(arr []int) ([]int, int) {
+	sz := len(arr)
+	if sz < 2 {
+		return arr, 0
+	}
+	half := sz / 2
+	L, l := invertParis(arr[:half])
+	R, r := invertParis(arr[half:])
+	M, m := mergeInvertParis(L, R)
+	return M, l + r + m
+}
+
+func InvertPairs(arr []int) int {
+	_, res := invertParis(arr)
+	return res
 }
