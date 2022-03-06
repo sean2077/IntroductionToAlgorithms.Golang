@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to IntroductionToAlgorithms.Golang's documentation!
-===========================================================
+《算法导论》读书笔记
+====================
 
 .. note:: 此项目文档为静态网页组成（更新日期: |today| ），为读取最新文档，建议浏览器中使用 ``Ctrl+F5`` 刷新网页.
 
