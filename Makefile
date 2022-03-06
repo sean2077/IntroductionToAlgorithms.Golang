@@ -24,13 +24,3 @@ clean:
 
 github: clean html
 	@cp -a _build/html/. docs
-
-VERSION := 0.0.1
-GIT_SHORT_HASH=$(shell git rev-parse --short HEAD)
-BUILD_DATE=$(shell date -u '+%Y-%m-%d-%H:%M:%S')
-IMAGE_TAG := v$(strip $(VERSION))-$(GIT_SHORT_HASH)$(IMAGE_SUFFIX)
-RUNTIME_IMAGE := zhangxianbing/python-runtime:$(IMAGE_TAG)
-
-runtime-image: ## 构建运行时镜像
-	docker build -f dockerfiles/Dockerfile.runtime $(IMAGE_FLAGS) -t $(RUNTIME_IMAGE) .
-	docker push $(RUNTIME_IMAGE)
