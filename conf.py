@@ -32,7 +32,6 @@ release = "0.0.1"
 # ones.
 extensions = [
     "sphinx.ext.githubpages",
-    "myst_parser",
     "sphinxcontrib.programoutput",
 ]
 
