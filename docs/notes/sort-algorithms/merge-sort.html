@@ -211,6 +211,9 @@
 <li><p><strong>解决</strong> 使用归并排序递归地排序两个子序列。</p></li>
 <li><p><strong>合并</strong> 合并两个已排序的子序列。</p></li>
 </ol>
+<p>时间复杂度分析:</p>
+<div class="math-wrapper"><div class="math notranslate nohighlight">
+\[T(n) = 2T(n/2) + cn\]</div></div>
 </section>
 <section id="golang">
 <h2><span class="section-number">3.3. </span>Golang 实现<a class="headerlink" href="#golang" title="永久链接至标题">#</a></h2>
@@ -247,6 +250,51 @@
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
+</section>
+<section id="id5">
+<h2><span class="section-number">3.4. </span>分治模式相关问题<a class="headerlink" href="#id5" title="永久链接至标题">#</a></h2>
+<section id="id6">
+<h3><span class="section-number">3.4.1. </span>逆序对<a class="headerlink" href="#id6" title="永久链接至标题">#</a></h3>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// 逆序对</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">mergeInvertParis</span><span class="p">(</span><span class="nx">L</span><span class="p">,</span><span class="w"> </span><span class="nx">R</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">lsz</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">L</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">rsz</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">R</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">M</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nx">lsz</span><span class="o">+</span><span class="nx">rsz</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w">    </span><span class="nx">j</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w">    </span><span class="nx">res</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">lsz</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">rsz</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="nx">rsz</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">lsz</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">L</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">R</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">M</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">M</span><span class="p">,</span><span class="w"> </span><span class="nx">L</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span><span class="w"></span>
+<span class="w">            </span><span class="nx">i</span><span class="o">++</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">M</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">M</span><span class="p">,</span><span class="w"> </span><span class="nx">R</span><span class="p">[</span><span class="nx">j</span><span class="p">])</span><span class="w"></span>
+<span class="w">            </span><span class="nx">j</span><span class="o">++</span><span class="w"></span>
+<span class="w">            </span><span class="nx">res</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">lsz</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">i</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">M</span><span class="p">,</span><span class="w"> </span><span class="nx">res</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">invertParis</span><span class="p">(</span><span class="nx">arr</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">sz</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">sz</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">arr</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nx">half</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sz</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="w"></span>
+<span class="w">    </span><span class="nx">L</span><span class="p">,</span><span class="w"> </span><span class="nx">l</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">invertParis</span><span class="p">(</span><span class="nx">arr</span><span class="p">[:</span><span class="nx">half</span><span class="p">])</span><span class="w"></span>
+<span class="w">    </span><span class="nx">R</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">invertParis</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">half</span><span class="p">:])</span><span class="w"></span>
+<span class="w">    </span><span class="nx">M</span><span class="p">,</span><span class="w"> </span><span class="nx">m</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">mergeInvertParis</span><span class="p">(</span><span class="nx">L</span><span class="p">,</span><span class="w"> </span><span class="nx">R</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">M</span><span class="p">,</span><span class="w"> </span><span class="nx">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">m</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">InvertPairs</span><span class="p">(</span><span class="nx">arr</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">invertParis</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">res</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 
@@ -303,6 +351,10 @@
 <li><a class="reference internal" href="#id2">3.1. 分治模式</a></li>
 <li><a class="reference internal" href="#id4">3.2. 算法</a></li>
 <li><a class="reference internal" href="#golang">3.3. Golang 实现</a></li>
+<li><a class="reference internal" href="#id5">3.4. 分治模式相关问题</a><ul>
+<li><a class="reference internal" href="#id6">3.4.1. 逆序对</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -320,5 +372,6 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/scripts/furo.js"></script>
     <script src="../../_static/translations.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     </body>
 </html>
