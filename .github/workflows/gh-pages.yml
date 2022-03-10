@@ -16,7 +16,8 @@ jobs:
   deploy:
     name: 更新 GitHub Pages
     runs-on: ubuntu-20.04
-
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
     strategy:
       matrix:
         python-versions: [3.8]
